@@ -1,10 +1,10 @@
 package pl.wsb.wypozyczalnia.customer.entity;
+import pl.wsb.wypozyczalnia.rental.entity.Rental;
+import pl.wsb.wypozyczalnia.account.domain.UserAccount;
 
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import pl.wsb.wypozyczalnia.rental.entity.Rental;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +36,9 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private List<Rental> rentals = new ArrayList<>();
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_account_id")
+    private UserAccount userAccount;
 
     protected Customer() {
     }
@@ -48,6 +51,7 @@ public class Customer {
         this.drivingLicenseNumber = drivingLicenseNumber;
         this.registeredOn = registeredOn;
         this.address = address;
+        this.userAccount = userAccount;
     }
 
     public Long getId() { return id; }
@@ -58,4 +62,5 @@ public class Customer {
     public LocalDate getRegisteredOn() { return registeredOn; }
     public Address getAddress() { return address; }
     public List<Rental> getRentals() { return rentals; }
+    public UserAccount getUserAccount() { return userAccount; }
 }
