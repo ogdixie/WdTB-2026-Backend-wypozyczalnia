@@ -1,5 +1,7 @@
 package pl.wsb.wypozyczalnia.fleet.entity;
 
+import pl.wsb.wypozyczalnia.branch.entity.Branch;
+
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -31,17 +33,22 @@ public class Car {
     @Column(name = "status", nullable = false, length = 20)
     private CarStatus status;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "branch_id", nullable = false)
+    private Branch branch;
+
     protected Car() {
     }
 
     public Car(String brand, String model, String plateNumber, Integer horsepower,
-               BigDecimal dailyPrice, CarStatus status) {
+               BigDecimal dailyPrice, CarStatus status, Branch branch) {
         this.brand = brand;
         this.model = model;
         this.plateNumber = plateNumber;
         this.horsepower = horsepower;
         this.dailyPrice = dailyPrice;
         this.status = status;
+        this.branch = branch;
     }
 
     public Long getId() { return id; }
@@ -51,4 +58,5 @@ public class Car {
     public Integer getHorsepower() { return horsepower; }
     public BigDecimal getDailyPrice() { return dailyPrice; }
     public CarStatus getStatus() { return status; }
+    public Branch getBranch() { return branch; }
 }
