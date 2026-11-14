@@ -3,6 +3,10 @@ package pl.wsb.wypozyczalnia.customer.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import pl.wsb.wypozyczalnia.rental.entity.Rental;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customer")
@@ -30,6 +34,9 @@ public class Customer {
     @Embedded
     private Address address;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Rental> rentals = new ArrayList<>();
+
     protected Customer() {
     }
 
@@ -50,4 +57,5 @@ public class Customer {
     public String getDrivingLicenseNumber() { return drivingLicenseNumber; }
     public LocalDate getRegisteredOn() { return registeredOn; }
     public Address getAddress() { return address; }
+    public List<Rental> getRentals() { return rentals; }
 }
