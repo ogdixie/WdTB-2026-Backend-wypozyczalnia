@@ -44,7 +44,7 @@ public class Customer {
     }
 
     public Customer(String fullName, String email, String phone, String drivingLicenseNumber,
-                    LocalDate registeredOn, Address address) {
+                    LocalDate registeredOn, Address address, UserAccount userAccount) {
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
