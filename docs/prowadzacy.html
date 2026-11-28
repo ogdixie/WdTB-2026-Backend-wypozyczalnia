@@ -8,13 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <link rel="stylesheet" href="assets/style.css">
-<script>try{var t=localStorage.getItem('wdtb-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<script>var t='dark';try{t=localStorage.getItem('wdtb-theme')||'dark';}catch(e){}document.documentElement.setAttribute('data-theme',t);</script>
 </head>
 <body>
 <div class="wrap">
 <div class="top">
   <a class="logo" href="index.html"><img src="assets/merito-logo.png" alt="Uniwersytet WSB Merito Wrocław"></a>
-  <nav class="jump" aria-label="Dokumentacja"><a href="index.html">Start</a><a href="lab01.html">LAB 01</a><a href="lab02.html">LAB 02</a><a href="lab03.html">LAB 03</a><a href="wymagania.html">Wymagania</a><a href="zasady.html">Zasady</a><a href="reguly.html">Reguły</a><a href="pomysl.html">Pomysł</a><a href="zespol.html">Praca w zespole</a><a href="roadmapa.html">Roadmapa</a><button class="theme-toggle" type="button" aria-label="Przełącz motyw jasny lub ciemny">Motyw</button></nav>
+  <nav class="jump" aria-label="Dokumentacja"><a href="index.html">Start</a><a href="lab01.html">LAB 01</a><a href="lab02.html">LAB 02</a><a href="lab03.html">LAB 03</a><a href="lab04.html">LAB 04</a><a href="wymagania.html">Wymagania</a><a href="zasady.html">Zasady</a><a href="reguly.html">Reguły</a><a href="pomysl.html">Pomysł</a><a href="zespol.html">Praca w zespole</a><a href="roadmapa.html">Roadmapa</a><button class="theme-toggle" type="button" aria-label="Przełącz motyw jasny lub ciemny">Motyw</button></nav>
 </div>
 <main class="doc"><article class="md">
 <h1>Dla prowadzącego: konfiguracja GitHub</h1>
@@ -92,6 +92,29 @@ mvn verify -Dlab=N
 w zakładce <em>Actions</em> pokazuje, kiedy tag powstał. Zielony przebieg z <code>&lt;lab&gt;1&lt;/lab&gt;</code> albo
 <code>&lt;lab&gt;2&lt;/lab&gt;</code> nie sprawdza reguł LAB 03; tag wymusza właściwy numer laboratorium.
 Diagram schematu zespołu (<code>SCHEMAT.md</code>) jest w <em>Summary</em> przebiegu: sprawdź, czy odpowiada pomysłowi z wizytówki.</p>
+<h2>Przebieg LAB 04 (90 minut, ok. 10 zespołów)</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Czas</th>
+<th>Co</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>0:00–0:15</td><td>teoria: część A (trzy rodzaje zapytań na przykładzie kawiarni), pytania inwestora zespołu, praca na gałęziach, kryteria i termin</td></tr>
+<tr><td>0:15–0:20</td><td>warunek przystąpienia (zielone LAB 01–03); Sync fork, <code>&lt;lab&gt;4&lt;/lab&gt;</code>; każdy zespół otwiera swój plik pytań</td></tr>
+<tr><td>0:20–0:30</td><td><code>&lt;lab&gt;4&lt;/lab&gt;</code> wypchnięte na <code>main</code>; zespoły dzielą pracę (każda osoba swoje pytanie); pokaż na rzutniku jeden przebieg: gałąź <code>feature/…</code> → Pull Request → przegląd → scalenie</td></tr>
+<tr><td>0:30–1:20</td><td>praca zespołów (części C–D), obchód stanowisk; zgłoszone błędy w pytaniach poprawiaj w szablonie (plik zespołu w <code>lab04/pytania</code>)</td></tr>
+<tr><td>1:20–1:30</td><td>zespoły, które skończyły, pokazują przebieg; pozostałe oddają tagiem <code>lab-4</code> do niedzieli 6 grudnia 2026, godz. 23:59</td></tr>
+</tbody>
+</table></div>
+<p><strong>Pytania inwestora</strong> są indywidualne: plik <code>src/test/java/pl/wsb/rules/lab04/pytania/grupa-&lt;N&gt;-&lt;kod&gt;/&lt;właściciel&gt;__&lt;repozytorium&gt;.md</code>, ułożony do schematu zespołu
+po LAB 03. Reguły sprawdzają tylko rodzaj zapytania (pochodne przez relację, JPQL z <code>JOIN</code>, <code>GROUP BY</code> z projekcją); przy stanowisku poproś dowolną osobę o wyjaśnienie wskazanego pytania: co zwraca metoda i skąd oczekiwany wynik w teście.
+<strong>Pull Request (R4.05, ocena 5):</strong> reguła szuka od 27.11.2026 co najmniej jednego commita „Merge pull request #…” na <code>main</code>; nie zależy od liczby osób,
+więc nieobecności w zespole nie blokują oceny. Zespół bez Sync fork ma stary workflow z płytką historią: reguła prosi wtedy o Sync fork.
+Kto robił które pytanie, sprawdzisz w raporcie <em>Wkład członków zespołu</em> i w zakładce <em>Pull requests</em> forka.
+Zespoły z niepełnym schematem (bez relacji po LAB 03) mają w pliku adnotację, jakich tabel pytania zakładają. Nowy zespół albo nowe repozytorium:
+dopisz plik w tym samym formacie w katalogu grupy i link w spisie <code>pytania/README.md</code> (autotest LAB 04 sprawdza komplet P1–P3 i linię „Pakiet:”).</p>
 <h2>Ocena laboratorium (na koniec zajęć, ok. 5 min na zespół)</h2>
 <ol>
 <li>Zespół pokazuje przebieg <em>Testy i reguły</em> dla ostatniego commita na <code>main</code> (albo uruchomiony ręcznie <em>Run workflow</em> z numerem laboratorium, albo dla opcjonalnego tagu <code>lab-N</code>): zielony etap „Ocena 4” to warunek konieczny, zielony etap „Ocena 5” to warunek oceny 5. W LAB 03 ocenę wyznacza najwyższy zielony etap („Ocena 3”, „Ocena 4”, „Ocena 5”).</li>
@@ -130,5 +153,6 @@ Diagram schematu zespołu (<code>SCHEMAT.md</code>) jest w <em>Summary</em> prze
   label();
 })();
 </script>
+<script src="assets/snow.js" defer></script>
 </body>
 </html>

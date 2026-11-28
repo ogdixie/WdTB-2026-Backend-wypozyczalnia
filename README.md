@@ -11,7 +11,8 @@ Materiały przygotował: **Wojciech Koszela**, prowadzący
 **Dokumentacja: [wkoszela.github.io/WdTB-2026-Backend--projectname--](https://wkoszela.github.io/WdTB-2026-Backend--projectname--/)**
 (instrukcje: [LAB 01](https://wkoszela.github.io/WdTB-2026-Backend--projectname--/lab01.html),
 [LAB 02](https://wkoszela.github.io/WdTB-2026-Backend--projectname--/lab02.html),
-[LAB 03](https://wkoszela.github.io/WdTB-2026-Backend--projectname--/lab03.html)).
+[LAB 03](https://wkoszela.github.io/WdTB-2026-Backend--projectname--/lab03.html),
+[LAB 04](https://wkoszela.github.io/WdTB-2026-Backend--projectname--/lab04.html)).
 Są tam instrukcje do zajęć, wymagania, zasady zaliczenia i opis reguł projektu.
 **Arkusz zespołów (Excel): [otwórz w SharePoint](https://m365ht-my.sharepoint.com/:x:/g/personal/wojciech_koszela_wroclaw_merito_pl/IQCEEPWN_2owS6zMeDfSfeG-AXpOGAC7AgOlj9SAudd8Y0w?e=S2s4H9)**, zakładka Waszej grupy.
 Te same strony znajdują się w katalogu [`docs/`](docs/index.html); po sklonowaniu repozytorium można je otworzyć lokalnie w przeglądarce.
@@ -29,8 +30,8 @@ Te same strony znajdują się w katalogu [`docs/`](docs/index.html); po sklonowa
 | LAB 01 | Start: projekt, aplikacja i opis pomysłu (bez oceny) |
 | LAB 02 | Encje JPA i dane startowe (ocena z pokazanego przebiegu w GitHub Actions) |
 | LAB 03 | Relacje między tabelami, skończony schemat bazy (można dokończyć w domu; oddanie tagiem `lab-3` do niedzieli 22 listopada 2026, godz. 23:59) |
-| LAB 04 | Zapytania, serwisy i komponenty |
-| LAB 05 | Kontrolery REST |
+| LAB 04 | Zapytania: własne pytania inwestora zespołu, gałęzie i Pull Requesty (można dokończyć w domu; oddanie tagiem `lab-4` do niedzieli 6 grudnia 2026, godz. 23:59) |
+| LAB 05 | Serwisy i kontrolery REST |
 | LAB 06 | Rozbudowa: zdarzenia, konfiguracja, zadania cykliczne |
 | LAB 07 | Odrabianie |
 
@@ -151,6 +152,23 @@ Instrukcja krok po kroku: `docs/lab03.html`. Warunek przystąpienia: skończone 
 Zadanie można oddać na zajęciach albo dokończyć w domu i oddać najpóźniej w niedzielę 22 listopada 2026 do godz. 23:59. Oddanie to tag `lab-3`
 (okno *Git* → *Log* → prawy przycisk na commicie → *New Tag…*, potem *Git → Push* z *Push Tags*); ocena wynika z przebiegu
 „Testy i reguły” dla tego tagu: zielony etap „Ocena 3” to 3, także „Ocena 4” to 4, wszystkie trzy to 5.
+
+## Co zmodyfikować na LAB 04
+
+Instrukcja krok po kroku: `docs/lab04.html`. Warunek przystąpienia: skończone LAB 01–03.
+Propozycje pytań inwestora dla każdego zespołu są w `src/test/java/pl/wsb/rules/lab04/pytania/grupa-<N>-<kod>/<właściciel>__<repozytorium>.md`;
+zespół może je zrealizować albo ułożyć własne pytania, a kryteria w obu przypadkach sprawdza pipeline.
+
+| Plik | Zmiana | Reguła |
+|---|---|---|
+| `pom.xml`, `<lab>` | `3` → `4` (od razu commit i push) | włącza R4.xx |
+| ocena 3 (minimum) | co najmniej 4 repozytoria `<Encja>Repository`, każde dla innej encji, w `<moduł>.repository`; pytania P1 (zapytanie pochodne przez relację) i P2 (`@Query` z `JOIN`) jako metody repozytoriów z testami `@DataJpaTest` z `@DisplayName("P1 …")` | R4.01–R4.03 |
+| ocena 4 | także pytanie P3 (`GROUP BY` z projekcją) | R4.04 |
+| ocena 5: Pull Request | podzielcie pracę: każda osoba swoją część (pytanie i repozytoria) na własnej gałęzi `feature/…` z `main`, scalanej do `main` Pull Requestem (*Create a merge commit*); co najmniej jeden scalony PR; dane testowe w `src/test/resources/sql/` z `@Sql`, nie w `data.sql` | R4.05 |
+| `src/main/resources/static/index.html` | w liście zmian: co powstało na LAB 04 | — |
+
+Oddanie tagiem `lab-4` najpóźniej w niedzielę 6 grudnia 2026 do godz. 23:59; ocena wynika z przebiegu „Testy i reguły” dla tego tagu,
+tak samo jak w LAB 03.
 
 ## Konwencja nazw
 

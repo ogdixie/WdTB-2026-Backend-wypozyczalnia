@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAB 04 · Zapytania: pytania inwestora · Wprowadzenie do technologii backendowych</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<script>var t='dark';try{t=localStorage.getItem('wdtb-theme')||'dark';}catch(e){}document.documentElement.setAttribute('data-theme',t);</script>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+  <a class="logo" href="index.html"><img src="assets/merito-logo.png" alt="Uniwersytet WSB Merito Wrocław"></a>
+  <nav class="jump" aria-label="Dokumentacja"><a href="index.html">Start</a><a href="lab01.html">LAB 01</a><a href="lab02.html">LAB 02</a><a href="lab03.html">LAB 03</a><a href="lab04.html" aria-current="page">LAB 04</a><a href="wymagania.html">Wymagania</a><a href="zasady.html">Zasady</a><a href="reguly.html">Reguły</a><a href="pomysl.html">Pomysł</a><a href="zespol.html">Praca w zespole</a><a href="roadmapa.html">Roadmapa</a><button class="theme-toggle" type="button" aria-label="Przełącz motyw jasny lub ciemny">Motyw</button></nav>
+</div>
+<main class="doc"><article class="md">
+<h1>LAB 04 · Zapytania: pytania inwestora</h1>
+<blockquote>
+<p><strong>Cel.</strong> Wasze encje dostają repozytoria (co najmniej 4), a trzy z nich odpowiadają na <strong>pytania inwestora</strong>: pytania biznesowe o Wasze dane
+(sugestie ułożone do Waszego schematu z LAB 03 albo własne). Pracę dzielicie między siebie: każda osoba robi swoją część na własnej gałęzi i włącza ją do <code>main</code> przez <strong>Pull Request</strong>.</p>
+<p><strong>Termin: niedziela 6 grudnia 2026, godz. 23:59</strong>, tag <code>lab-4</code>. Zadanie można dokończyć w domu.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Ocena</th>
+<th>Co jest w projekcie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>3</strong></td>
+<td>co najmniej 4 repozytoria (każde dla innej encji) oraz pytania <strong>P1</strong> i <strong>P2</strong>: każde to metoda repozytorium i test, który ją wywołuje</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>także pytanie <strong>P3</strong> (zestawienie)</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>także co najmniej jedna gałąź (np. z Waszym repozytorium i pytaniem) scalona do <code>main</code> przez Pull Request</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Warunek przystąpienia:</strong> zielone reguły LAB 01–03. Kto ich nie ma, zaczyna od <a href="lab03.html">LAB 03</a>.</p>
+<p><strong>Co macie zrobić</strong> (szczegóły w częściach B i C):</p>
+<ol>
+<li><strong>Start:</strong> <em>Sync fork</em>, w <code>pom.xml</code> <code>&lt;lab&gt;4&lt;/lab&gt;</code>, <em>Commit</em> i <em>Push</em>.</li>
+<li><strong>Pytania:</strong> otwórzcie plik pytań swojego zespołu (część B, krok 2). Są w nim trzy propozycje P1–P3 ułożone do Waszego schematu; możecie zamiast nich ułożyć własne pytania tego samego rodzaju.</li>
+<li><strong>Repozytoria:</strong> co najmniej 4 interfejsy <code>…Repository extends JpaRepository</code>, każdy dla innej encji, w pakiecie <code>&lt;moduł&gt;.repository</code>.</li>
+<li><strong>Odpowiedź na pytanie:</strong> dla każdego pytania <strong>jedna metoda</strong> w repozytorium (P1: nazwa metody, P2 i P3: <code>@Query</code>) i <strong>jedna klasa testowa</strong> <code>@DataJpaTest</code> z testem <code>@DisplayName("P1 …")</code>, który wywołuje tę metodę i sprawdza wynik na danych z <code>data.sql</code>.</li>
+<li><strong>Gałęzie:</strong> każda część pracy na własnej gałęzi <code>feature/…</code>, potem Pull Request do <code>main</code> i scalenie przyciskiem <em>Create a merge commit</em>.</li>
+<li><strong>Oddanie:</strong> na <code>main</code> tag <code>lab-4</code> do niedzieli 6 grudnia 2026, godz. 23:59. Ocenę wystawia przebieg „Testy i reguły” dla tego tagu (część D).</li>
+</ol>
+</blockquote>
+<p class="toc-actions"><button type="button" data-parts="open">Rozwiń wszystko</button><button type="button" data-parts="close">Zwiń wszystko</button></p>
+<ol class="agenda toc">
+<li><span class="tag theory">Teoria</span><a href="#czesc-a"><strong>A · Trzy rodzaje zapytań</strong></a></li>
+<li><span class="tag task">Zadanie</span><a href="#czesc-b"><strong>B · Krok po kroku</strong></a></li>
+<li><span class="tag task">Zadanie</span><a href="#czesc-c"><strong>C · Test pytania</strong></a></li>
+<li><span class="tag task">Zadanie</span><a href="#czesc-d"><strong>D · Ocena</strong></a></li>
+</ol>
+<details class="part theory" id="czesc-a">
+<summary><h2><span class="tag theory">Teoria</span>A · Trzy rodzaje zapytań</h2></summary>
+<p>Wasze pytania są inne niż w przykładzie kawiarni, ale każde jest jednego z trzech rodzajów:</p>
+<div class="tbl"><table>
+<thead>
+<tr><th>Pytanie</th><th>Rodzaj</th><th>Ocena</th></tr>
+</thead>
+<tbody>
+<tr><td>P1</td><td>zapytanie pochodne: SQL powstaje z nazwy metody</td><td>3</td></tr>
+<tr><td>P2</td><td><code>@Query</code> w JPQL z <code>JOIN</code></td><td>3</td></tr>
+<tr><td>P3</td><td>zestawienie <code>GROUP BY</code> zwracające projekcję</td><td>4</td></tr>
+</tbody>
+</table></div>
+<h3>P1 · Zapytanie pochodne przez relację</h3>
+<p>Spring Data buduje zapytanie z nazwy metody; podkreślnik przechodzi przez relację.</p>
+<pre><code>// rezerwacje gościa o podanym nazwisku, od najnowszej
+List&lt;Reservation&gt; findByGuest_FullNameOrderByStartsAtDesc(String fullName);
+</code></pre>
+<p><strong>Jak czytać nazwę:</strong> <code>findBy</code> + warunek + opcjonalnie <code>OrderBy…</code>. Każdy kawałek to nazwa pola encji z wielkiej litery;
+parametry metody wypełniają warunki w tej samej kolejności.</p>
+<div class="tbl"><table>
+<thead>
+<tr><th>Kawałek nazwy</th><th>Znaczenie w SQL</th><th>Przykład</th></tr>
+</thead>
+<tbody>
+<tr><td><code>findBy</code> / <code>countBy</code> / <code>existsBy</code></td><td>lista / liczba / czy istnieje</td><td><code>countByStatus(ReservationStatus s)</code></td></tr>
+<tr><td><code>Guest_FullName</code></td><td>pole encji powiązanej (podkreślnik = przejście przez relację): <code>guest.full_name = ?</code></td><td><code>findByGuest_FullName(String name)</code></td></tr>
+<tr><td><code>And</code>, <code>Or</code></td><td>kilka warunków</td><td><code>findByStatusAndPartySize(…, …)</code></td></tr>
+<tr><td><code>Between</code>, <code>After</code>, <code>Before</code></td><td>zakres, daty</td><td><code>findByStartsAtBetween(from, to)</code></td></tr>
+<tr><td><code>GreaterThanEqual</code>, <code>LessThan</code></td><td><code>&gt;=</code>, <code>&lt;</code></td><td><code>findByPartySizeGreaterThanEqual(4)</code></td></tr>
+<tr><td><code>Containing</code>, <code>IgnoreCase</code></td><td><code>like '%…%'</code>, bez wielkości liter</td><td><code>findByRoomContainingIgnoreCase("sala")</code></td></tr>
+<tr><td><code>IsNull</code>, <code>True</code></td><td><code>is null</code>, <code>= true</code></td><td><code>findByPhoneIsNull()</code></td></tr>
+<tr><td><code>OrderBy…Asc</code> / <code>Desc</code></td><td><code>order by … asc</code> / <code>desc</code></td><td><code>…OrderByStartsAtDesc</code></td></tr>
+</tbody>
+</table></div>
+<p>Literówka w nazwie pola zatrzymuje start aplikacji z komunikatem <code>No property … found for type …</code>.
+Dokumentacja Spring Data JPA: <a href="https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html#jpa.query-methods.query-creation" target="_blank" rel="noopener">tworzenie zapytań z nazwy metody</a> (tabela wszystkich słów kluczowych),
+<a href="https://docs.spring.io/spring-data/jpa/reference/repositories/query-methods-details.html#repositories.query-methods.query-property-expressions" target="_blank" rel="noopener">przejście przez relację</a>,
+<a href="https://docs.spring.io/spring-data/jpa/reference/repositories/query-keywords-reference.html" target="_blank" rel="noopener">lista słów kluczowych</a>.</p>
+<h3>P2 · JPQL z JOIN</h3>
+<p>Zapytanie piszecie sami w adnotacji <code>@Query</code>. JPQL używa encji i pól (<code>Reservation r</code>, <code>r.table</code>), nie tabel i kolumn,
+a <code>join</code> przechodzi przez pole relacji. Parametry to <code>:nazwa</code> w zapytaniu i <code>@Param("nazwa")</code> przy parametrze metody.</p>
+<p><strong>Najprostsze:</strong> jeden <code>join</code> i warunek na tabeli połączonej.</p>
+<pre><code>// w ReservationRepository: rezerwacje przy stolikach w podanej sali
+@Query("select r from Reservation r join r.table t where t.room = :room")
+List&lt;Reservation&gt; inRoom(@Param("room") String room);
+</code></pre>
+<p><strong>Typowe P2:</strong> wynik z „drugiej strony” relacji. Szukacie stolików, a warunek dotyczy ich rezerwacji. Nadal jeden <code>join</code>,
+do tego <code>distinct</code>, bo stolik z kilkoma pasującymi rezerwacjami ma się pojawić raz. Takiego pytania nie zapiszecie nazwą metody w repozytorium stolików.</p>
+<pre><code>// w CafeTableRepository: stoliki, które mają co najmniej jedną rezerwację o podanym statusie; każdy raz
+@Query("""
+        select distinct t
+        from Reservation r join r.table t
+        where r.status = :status
+        """)
+List&lt;CafeTable&gt; tablesWithStatus(@Param("status") ReservationStatus status);
+</code></pre>
+<p>Dokumentacja: <a href="https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html#jpa.query-methods.at-query" target="_blank" rel="noopener">adnotacja @Query</a>, <a href="https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html#jpa.named-parameters" target="_blank" rel="noopener">parametry nazwane</a>.</p>
+<h3>P3 · Zestawienie GROUP BY</h3>
+<p>Zestawienie nie zwraca wierszy tabeli, tylko policzone wartości, np. „stolik 2: 2 rezerwacje, 40 zł zaliczek”. Takiego wyniku nie da się zapisać
+w encji <code>Reservation</code>, bo encja to cały wiersz tabeli. Dlatego metoda zwraca <strong>projekcję</strong>: własny interfejs opisujący kształt
+jednego wiersza wyniku. Ma same gettery, a Spring Data wypełnia je wartościami kolumn o tych samych nazwach, co aliasy po <code>as</code> w zapytaniu
+(<code>as tableNumber</code> → <code>getTableNumber()</code>). Nie piszecie klasy ani implementacji, tylko interfejs.</p>
+<div class="tbl"><table>
+<thead>
+<tr><th>Metoda zwraca</th><th>Co to jest</th><th>Na P3</th></tr>
+</thead>
+<tbody>
+<tr><td><code>List&lt;Reservation&gt;</code></td><td>całe wiersze tabeli (encje)</td><td>nie</td></tr>
+<tr><td><code>List&lt;Object[]&gt;</code></td><td>wartości bez nazw: <code>row[0]</code>, <code>row[1]</code>…</td><td>nie</td></tr>
+<tr><td><code>List&lt;TableLoad&gt;</code></td><td>projekcja: nazwane wartości <code>getTableNumber()</code>, <code>getReservations()</code>…</td><td>tak</td></tr>
+</tbody>
+</table></div>
+<p><strong>Na ocenę 4 wystarczy wariant najprostszy</strong> (jedna tabela, <code>count</code>). Sugestia P3 z Waszego pliku pytań to zwykle wersja
+ambitniejsza, z <code>join</code> i <code>sum</code> albo <code>avg</code>. Możecie ją uprościć do pytania, które daje się zapisać najprostszym wariantem.</p>
+<p><strong>Najprostsze:</strong> jedna tabela, grupowanie po kolumnie i <code>count</code>. Projekcja ma dwa gettery: grupę i liczbę.</p>
+<pre><code>// ile rezerwacji jest w każdym statusie (NEW: 2, CONFIRMED: 1…)
+@Query("select r.status as status, count(r) as reservations from Reservation r group by r.status")
+List&lt;StatusCount&gt; countByStatus();
+
+public interface StatusCount {
+    ReservationStatus getStatus();
+    long getReservations();
+}
+</code></pre>
+<p><strong>Bardziej zaawansowane:</strong> grupowanie po kolumnie tabeli połączonej przez <code>join</code>, kilka wartości (<code>count</code> i <code>sum</code>) i sortowanie po wyniku.</p>
+<pre><code>// dla każdego stolika: numer, liczba rezerwacji, suma zaliczek
+@Query("""
+        select t.number as tableNumber, count(r) as reservations, sum(r.deposit) as deposits
+        from Reservation r join r.table t
+        group by t.number
+        order by sum(r.deposit) desc
+        """)
+List&lt;TableLoad&gt; tableLoad();
+
+public interface TableLoad {
+    Integer getTableNumber();
+    long getReservations();
+    BigDecimal getDeposits();
+}
+</code></pre>
+<p>Typ gettera musi pasować do tego, co zwraca funkcja w zapytaniu. Inaczej aplikacja zatrzymuje się z błędem konwersji.</p>
+<div class="tbl"><table>
+<thead>
+<tr><th>W zapytaniu</th><th>Typ gettera w projekcji</th></tr>
+</thead>
+<tbody>
+<tr><td><code>count(…)</code></td><td><code>long</code></td></tr>
+<tr><td><code>avg(…)</code></td><td><code>Double</code></td></tr>
+<tr><td><code>sum(…)</code> po polu <code>Integer</code> / <code>Long</code></td><td><code>Long</code></td></tr>
+<tr><td><code>sum(…)</code> po polu <code>BigDecimal</code></td><td><code>BigDecimal</code></td></tr>
+<tr><td><code>sum(…)</code> po polu <code>Double</code></td><td><code>Double</code></td></tr>
+<tr><td>kolumna z <code>group by</code></td><td>typ pola w encji, np. <code>String</code>, enum</td></tr>
+</tbody>
+</table></div>
+<p>Dokumentacja: <a href="https://docs.spring.io/spring-data/jpa/reference/repositories/projections.html" target="_blank" rel="noopener">projekcje (interfejsy z getterami)</a>.</p>
+<p>Cały przykład z testami: <code>src/test/java/pl/wsb/rules/examples/cafe/booking/repository</code>.</p>
+</details>
+<details class="part task" id="czesc-b">
+<summary><h2><span class="tag task">Zadanie</span>B · Krok po kroku</h2></summary>
+<h3>1 · Start</h3>
+<p>Na GitHubie <em>Sync fork → Update branch</em>, w IntelliJ <em>Git → Pull</em>. W <code>pom.xml</code> ustawcie <code>&lt;lab&gt;4&lt;/lab&gt;</code>,
+potem <em>Commit</em> i <em>Push</em> na <code>main</code>.</p>
+<h3>2 · Wasze pytania (sugestie)</h3>
+<p>Plik <code>src/test/java/pl/wsb/rules/lab04/pytania/grupa-&lt;N&gt;-&lt;kod&gt;/&lt;właściciel&gt;__&lt;repozytorium&gt;.md</code>
+(<code>&lt;N&gt;-&lt;kod&gt;</code> to numer i kod Waszej grupy z arkusza zespołów, np. <code>grupa-4-SI_1m</code>; <a href="https://github.com/wkoszela/WdTB-2026-Backend--projectname--/tree/main/src/test/java/pl/wsb/rules/lab04/pytania" target="_blank" rel="noopener">spis wszystkich zespołów na GitHubie</a>).
+Kolumna <strong>„Repozytorium”</strong> mówi, gdzie trafia metoda pytania.</p>
+<p>Pytania z pliku to <strong>sugestie</strong> ułożone do Waszego schematu. Możecie je zrobić albo ułożyć własne pytanie inwestora tego samego rodzaju
+(P1, P2, P3 z części A), lepiej pasujące do Waszego pomysłu. Treść własnego pytania wpiszcie w <code>@DisplayName</code> testu,
+np. <code>@DisplayName("P2 Którzy klienci …")</code>.</p>
+<h3>3 · Podział pracy (rekomendacja)</h3>
+<p>Do zrobienia: <strong>co najmniej 4 repozytoria</strong> (w tym te z kolumny „Repozytorium”) i <strong>trzy pytania</strong>. Rekomendujemy podzielić to między siebie,
+żeby każda osoba miała swoją część. Przykład dla zespołu trzyosobowego:</p>
+<div class="tbl"><table>
+<thead>
+<tr><th>Osoba</th><th>Część pracy</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>pytanie P1 (z jego repozytorium) i jedno z pozostałych repozytoriów</td></tr>
+<tr><td>2</td><td>pytanie P2 (z jego repozytorium) i jedno z pozostałych repozytoriów</td></tr>
+<tr><td>3</td><td>pytanie P3 (z jego repozytorium) i przegląd Pull Requestów pozostałych osób</td></tr>
+</tbody>
+</table></div>
+<p>We dwie osoby: jedna P1 i P3, druga P2 i pozostałe repozytoria. Każda część to <strong>jedna gałąź i jeden Pull Request</strong>:</p>
+<div class="tbl"><table>
+<thead>
+<tr><th>Krok</th><th>Co robicie</th></tr>
+</thead>
+<tbody>
+<tr><td>Gałąź</td><td><em>Git → Pull</em> na <code>main</code>, potem <em>Git → New Branch…</em> → <code>feature/&lt;co-robicie&gt;</code>, np. <code>feature/p1-samochody</code></td></tr>
+<tr><td>Praca</td><td>repozytoria ze swojej części (przykład niżej), metoda pytania i klasa testowa (część C)</td></tr>
+<tr><td>Wysłanie</td><td><em>Maven → verify</em>, <em>Commit</em>, <em>Push</em></td></tr>
+<tr><td>Pull Request</td><td>na GitHubie <em>Compare &amp; pull request</em> do <code>main</code> <strong>Waszego forka</strong></td></tr>
+<tr><td>Scalenie</td><td>inna osoba z zespołu: <em>Files changed → Approve</em>, potem <strong>Create a merge commit</strong></td></tr>
+</tbody>
+</table></div>
+<p>Pracujecie sami? Też przez gałąź i Pull Request, przegląd robicie sami. Ocena nie zależy od liczby osób.</p>
+<pre><code>// encja w …booking.entity, repozytorium w …booking.repository;
+// bez własnych metod też się liczy: dziedziczy findAll, findById, save
+public interface CafeTableRepository extends JpaRepository&lt;CafeTable, Long&gt; {
+}
+</code></pre>
+<h3>4 · Oddanie</h3>
+<p>Na <code>main</code>, po scaleniu wszystkiego: dopiszcie zmiany na wizytówce (<code>static/index.html</code>), potem tag <code>lab-4</code>
+(<em>Git → Log</em> → prawy przycisk na ostatnim commicie → <em>New Tag…</em>, <em>Git → Push</em> z <em>Push Tags</em>).
+Poprawka przed terminem: nowy tag, np. <code>lab-4-poprawa</code>; liczy się ostatni tag wypchnięty w terminie.</p>
+<blockquote>
+<p>Nie edytujecie <code>src/test/java/pl/wsb/rules</code>, <code>.github/workflows</code> ani <code>data.sql</code>.</p>
+</blockquote>
+</details>
+<details class="part task" id="czesc-c">
+<summary><h2><span class="tag task">Zadanie</span>C · Test pytania</h2></summary>
+<p>Każde pytanie ma <strong>własną klasę testową</strong>. Nazwa: numer pytania i nazwa repozytorium, np. <code>P1ReservationRepositoryTest</code>.
+Miejsce: ten sam pakiet co repozytorium, ale w <code>src/test/java</code> zamiast <code>src/main/java</code>. Dokładne ścieżki dla Waszych pytań są
+w pliku pytań, w tabeli „Gdzie to piszecie”. Przykład kawiarni:</p>
+<div class="tbl"><table>
+<thead>
+<tr><th>Pytanie</th><th>Metoda w</th><th>Test w</th></tr>
+</thead>
+<tbody>
+<tr><td>P1</td><td><code>src/main/java/pl/wsb/kawiarnia/booking/repository/ReservationRepository.java</code></td><td><code>src/test/java/pl/wsb/kawiarnia/booking/repository/P1ReservationRepositoryTest.java</code></td></tr>
+<tr><td>P2</td><td><code>src/main/java/pl/wsb/kawiarnia/seating/repository/CafeTableRepository.java</code></td><td><code>src/test/java/pl/wsb/kawiarnia/seating/repository/P2CafeTableRepositoryTest.java</code></td></tr>
+<tr><td>P3</td><td><code>src/main/java/pl/wsb/kawiarnia/booking/repository/ReservationRepository.java</code></td><td><code>src/test/java/pl/wsb/kawiarnia/booking/repository/P3ReservationRepositoryTest.java</code></td></tr>
+</tbody>
+</table></div>
+<p>W IntelliJ: prawy przycisk na <code>src/test/java</code> → <em>New → Package</em> (nazwa jak pakiet repozytorium), potem w pakiecie <em>New → Java Class</em>.
+<code>@DisplayName</code> zaczyna się od numeru pytania: po nim reguła znajduje test. <code>@DataJpaTest</code> uruchamia czystą bazę H2 z danymi z <code>data.sql</code>.</p>
+<pre><code>// src/test/java/pl/wsb/kawiarnia/booking/repository/P1ReservationRepositoryTest.java
+@DataJpaTest
+class P1ReservationRepositoryTest {
+
+    @Autowired
+    private ReservationRepository reservations;
+
+    @Test
+    @DisplayName("P1 Rezerwacje gościa o podanym imieniu i nazwisku, od najnowszej")
+    void p1ReservationsOfGuest() {
+        List&lt;Reservation&gt; found = reservations.findByGuest_FullNameOrderByStartsAtDesc("Anna Kowalska");
+
+        // oczekiwany wynik policzcie ręcznie z Waszych danych
+        assertThat(found).hasSize(2);
+    }
+}
+</code></pre>
+<blockquote>
+<p><strong>Dodatkowe dane tylko dla testu</strong> (gdy w <code>data.sql</code> brakuje ciekawego przypadku): plik <code>src/test/resources/sql/p1.sql</code>
+z poleceniami <code>insert</code> bez kolumny <code>id</code> i adnotacja <code>@Sql("/sql/p1.sql")</code> przy teście. <code>data.sql</code> zostaje bez zmian.</p>
+</blockquote>
+</details>
+<details class="part task" id="czesc-d">
+<summary><h2><span class="tag task">Zadanie</span>D · Ocena</h2></summary>
+<div class="tbl"><table>
+<thead>
+<tr><th>Przebieg „Testy i reguły” dla tagu <code>lab-4</code></th><th>Ocena</th></tr>
+</thead>
+<tbody>
+<tr><td>brak tagu do niedzieli 6 grudnia 2026, godz. 23:59 albo etap „Ocena 3” czerwony</td><td><strong>brak zaliczenia</strong> (poprawa na LAB 07)</td></tr>
+<tr><td>zielony etap „Ocena 3”</td><td><strong>3</strong></td></tr>
+<tr><td>zielone etapy „Ocena 3” i „Ocena 4”</td><td><strong>4</strong></td></tr>
+<tr><td>wszystkie trzy etapy zielone</td><td><strong>5</strong></td></tr>
+</tbody>
+</table></div>
+<h3>Kryteria</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Kryterium</th>
+<th>Ocena</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LAB 01–03</td>
+<td>reguły wcześniejszych laboratoriów i testy zespołu zielone</td>
+<td>3, 4, 5</td>
+</tr>
+<tr>
+<td>R4.01</td>
+<td>co najmniej 4 repozytoria, każde dla innej encji, w pakiecie <code>&lt;moduł&gt;.repository</code></td>
+<td>3, 4, 5</td>
+</tr>
+<tr>
+<td>R4.02</td>
+<td>test „P1 …” wywołuje zapytanie pochodne przez relację</td>
+<td>3, 4, 5</td>
+</tr>
+<tr>
+<td>R4.03</td>
+<td>test „P2 …” wywołuje metodę z <code>@Query</code> z <code>JOIN</code> (bez <code>GROUP BY</code>)</td>
+<td>3, 4, 5</td>
+</tr>
+<tr>
+<td>R4.04</td>
+<td>test „P3 …” wywołuje zestawienie <code>GROUP BY</code> zwracające projekcję</td>
+<td>4, 5</td>
+</tr>
+<tr>
+<td>R4.05</td>
+<td>co najmniej jeden Pull Request scalony do <code>main</code> (commit „Merge pull request #…”)</td>
+<td>5</td>
+</tr>
+</tbody>
+</table></div>
+<p>Pytania z Waszego pliku pytań to propozycje: możecie je zrealizować albo ułożyć własne. Kryteria z tabeli dotyczą obu przypadków i sprawdza je pipeline.</p>
+<p>Reguły sprawdzają rodzaj zapytania, a nie jego sens. Prowadzący może obniżyć ocenę, gdy metoda nie odpowiada na pytanie albo test nie sprawdza wyniku.</p>
+</details>
+</article></main>
+
+<footer>
+  <span>Wprowadzenie do technologii backendowych · laboratoria</span>
+  <span class="author">Materiały przygotował: <b>Wojciech Koszela</b>, prowadzący<a class="social li" href="https://www.linkedin.com/in/wkoszela/" target="_blank" rel="noopener" aria-label="Wojciech Koszela na LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a><a class="social gh" href="https://github.com/wkoszela" target="_blank" rel="noopener" aria-label="wkoszela na GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</a><a class="social mail" href="mailto:wojciech.koszela@wroclaw.merito.pl" aria-label="E-mail do prowadzącego"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.8 6.1L19.8 6H4.2zM20 7.9l-7.4 5.8a1 1 0 0 1-1.2 0L4 7.9V18h16V7.9z"/></svg>wojciech.koszela@wroclaw.merito.pl</a></span>
+  <span class="logo"><img src="assets/merito-logo.png" alt="Uniwersytet WSB Merito Wrocław"></span>
+</footer>
+</div>
+<script>
+(function () {
+  var root = document.documentElement, btn = document.querySelector('.theme-toggle');
+  if (!btn) return;
+  function current() {
+    return root.getAttribute('data-theme') ||
+      (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  }
+  function label() { btn.textContent = current() === 'dark' ? '☀ Jasny' : '☾ Ciemny'; }
+  btn.addEventListener('click', function () {
+    var next = current() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('wdtb-theme', next); } catch (e) {}
+    label();
+  });
+  label();
+})();
+</script>
+<script>
+(function () {
+  var parts = Array.prototype.slice.call(document.querySelectorAll('details.part'));
+  if (!parts.length) return;
+  function reveal() {
+    var id = decodeURIComponent(location.hash.slice(1));
+    var target = id && document.getElementById(id);
+    if (!target) return;
+    var part = target.closest('details.part');
+    if (part && !part.open) part.open = true;
+    target.scrollIntoView();
+  }
+  window.addEventListener('hashchange', reveal);
+  reveal();
+  document.querySelectorAll('[data-parts]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var open = button.getAttribute('data-parts') === 'open';
+      parts.forEach(function (part) { part.open = open; });
+    });
+  });
+  window.addEventListener('beforeprint', function () { parts.forEach(function (part) { part.open = true; }); });
+})();
+</script>
+<script src="assets/snow.js" defer></script>
+</body>
+</html>

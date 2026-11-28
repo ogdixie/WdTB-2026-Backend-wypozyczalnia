@@ -8,13 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <link rel="stylesheet" href="assets/style.css">
-<script>try{var t=localStorage.getItem('wdtb-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<script>var t='dark';try{t=localStorage.getItem('wdtb-theme')||'dark';}catch(e){}document.documentElement.setAttribute('data-theme',t);</script>
 </head>
 <body>
 <div class="wrap">
 <div class="top">
   <a class="logo" href="index.html"><img src="assets/merito-logo.png" alt="Uniwersytet WSB Merito Wrocław"></a>
-  <nav class="jump" aria-label="Dokumentacja"><a href="index.html">Start</a><a href="lab01.html">LAB 01</a><a href="lab02.html">LAB 02</a><a href="lab03.html">LAB 03</a><a href="wymagania.html">Wymagania</a><a href="zasady.html">Zasady</a><a href="reguly.html" aria-current="page">Reguły</a><a href="pomysl.html">Pomysł</a><a href="zespol.html">Praca w zespole</a><a href="roadmapa.html">Roadmapa</a><button class="theme-toggle" type="button" aria-label="Przełącz motyw jasny lub ciemny">Motyw</button></nav>
+  <nav class="jump" aria-label="Dokumentacja"><a href="index.html">Start</a><a href="lab01.html">LAB 01</a><a href="lab02.html">LAB 02</a><a href="lab03.html">LAB 03</a><a href="lab04.html">LAB 04</a><a href="wymagania.html">Wymagania</a><a href="zasady.html">Zasady</a><a href="reguly.html" aria-current="page">Reguły</a><a href="pomysl.html">Pomysł</a><a href="zespol.html">Praca w zespole</a><a href="roadmapa.html">Roadmapa</a><button class="theme-toggle" type="button" aria-label="Przełącz motyw jasny lub ciemny">Motyw</button></nav>
 </div>
 <main class="doc"><article class="md">
 <h1>Reguły projektu</h1>
@@ -199,6 +199,45 @@ R2.03 uruchamia aplikację, pozostałe czytają skompilowane klasy (ArchUnit). A
 <p>Od LAB 03 przebieg ma dodatkowy, pierwszy etap „Ocena 3”: R3.01–R3.02 działają w etapie „Ocena 3”, R3.03–R3.10 w etapie „Ocena 4”, R3.11–R3.12 w etapie „Ocena 5”. R3.02 uruchamia aplikację, pozostałe czytają
 skompilowane klasy (ArchUnit). Autotest w <code>src/test/java/pl/wsb/rules/lab03</code> sprawdza je na przykładzie kawiarni
 i na celowo błędnym modelu.</p>
+<h2>LAB 04 · Zapytania: pytania inwestora</h2>
+<p>Instrukcja: <a href="lab04.html">LAB 04</a>. Pytania inwestora każdego zespołu są w <code>src/test/java/pl/wsb/rules/lab04/pytania</code>
+(plik <code>&lt;właściciel&gt;__&lt;repozytorium&gt;.md</code>); reguły znajdują plik po repozytorium (<code>GITHUB_REPOSITORY</code> albo <code>origin</code> w <code>.git/config</code>)
+i cytują pytanie w komunikacie.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Reguła</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R4.01</td>
+<td>Co najmniej 4 repozytoria Spring Data, każde dla innej własnej encji (bez <code>UserAccount</code>), w pakiecie <code>&lt;moduł&gt;.repository</code> tego samego modułu co encja</td>
+</tr>
+<tr>
+<td>R4.02</td>
+<td>P1: test <code>@DataJpaTest</code> z <code>@DisplayName("P1 …")</code> wywołuje zapytanie pochodne przez relację</td>
+</tr>
+<tr>
+<td>R4.03</td>
+<td>P2: test „P2 …” wywołuje metodę z <code>@Query</code> (JPQL) z <code>JOIN</code>, bez <code>GROUP BY</code></td>
+</tr>
+<tr>
+<td>R4.04</td>
+<td><strong>Ocena 4:</strong> P3: test „P3 …” wywołuje zestawienie <code>GROUP BY</code> zwracające listę projekcji (nie encji, nie <code>Object[]</code>)</td>
+</tr>
+<tr>
+<td>R4.05</td>
+<td><strong>Ocena 5:</strong> od 27.11.2026 w historii <code>main</code> co najmniej jeden commit „Merge pull request #…” (Pull Request scalony przyciskiem <em>Create a merge commit</em>); nie zależy od liczby osób w zespole</td>
+</tr>
+</tbody>
+</table></div>
+<p>R4.01–R4.03 działają w etapie „Ocena 3”, R4.04 w etapie „Ocena 4”, R4.05 w etapie „Ocena 5” (czyta historię Git; etap pobiera ją w całości, <code>fetch-depth: 0</code>).
+Reguły czytają skompilowane klasy kodu i testów zespołu (ArchUnit): test pytania musi bezpośrednio wywołać metodę repozytorium zadeklarowaną w repozytorium zespołu.
+Same testy zespołu uruchamiają się w etapach „Ocena 3” i „Ocena 4”, więc czerwony test zespołu to czerwony etap. Autotest w <code>src/test/java/pl/wsb/rules/lab04</code>
+sprawdza reguły na przykładzie kawiarni (wzorcowe zapytania i testy w <code>examples/cafe</code>), na celowo błędnym modelu, na tymczasowym repozytorium Git
+ze scaleniami i sprawdza kompletność plików pytań.</p>
 <p>Reguły kolejnych laboratoriów pojawią się w szablonie przed danymi zajęciami.</p>
 </article></main>
 <footer>
@@ -225,5 +264,6 @@ i na celowo błędnym modelu.</p>
   label();
 })();
 </script>
+<script src="assets/snow.js" defer></script>
 </body>
 </html>

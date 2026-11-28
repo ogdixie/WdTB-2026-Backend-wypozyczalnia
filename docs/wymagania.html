@@ -8,13 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <link rel="stylesheet" href="assets/style.css">
-<script>try{var t=localStorage.getItem('wdtb-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<script>var t='dark';try{t=localStorage.getItem('wdtb-theme')||'dark';}catch(e){}document.documentElement.setAttribute('data-theme',t);</script>
 </head>
 <body>
 <div class="wrap">
 <div class="top">
   <a class="logo" href="index.html"><img src="assets/merito-logo.png" alt="Uniwersytet WSB Merito Wrocław"></a>
-  <nav class="jump" aria-label="Dokumentacja"><a href="index.html">Start</a><a href="lab01.html">LAB 01</a><a href="lab02.html">LAB 02</a><a href="lab03.html">LAB 03</a><a href="wymagania.html" aria-current="page">Wymagania</a><a href="zasady.html">Zasady</a><a href="reguly.html">Reguły</a><a href="pomysl.html">Pomysł</a><a href="zespol.html">Praca w zespole</a><a href="roadmapa.html">Roadmapa</a><button class="theme-toggle" type="button" aria-label="Przełącz motyw jasny lub ciemny">Motyw</button></nav>
+  <nav class="jump" aria-label="Dokumentacja"><a href="index.html">Start</a><a href="lab01.html">LAB 01</a><a href="lab02.html">LAB 02</a><a href="lab03.html">LAB 03</a><a href="lab04.html">LAB 04</a><a href="wymagania.html" aria-current="page">Wymagania</a><a href="zasady.html">Zasady</a><a href="reguly.html">Reguły</a><a href="pomysl.html">Pomysł</a><a href="zespol.html">Praca w zespole</a><a href="roadmapa.html">Roadmapa</a><button class="theme-toggle" type="button" aria-label="Przełącz motyw jasny lub ciemny">Motyw</button></nav>
 </div>
 <main class="doc"><article class="md">
 <h1>Wymagania projektu</h1>
@@ -119,6 +119,34 @@
 </tr>
 </tbody>
 </table></div>
+<h2>LAB 04 · Zapytania: pytania inwestora</h2>
+<p>Warunek przystąpienia: skończone LAB 01–03. Zadanie można oddać na zajęciach albo dokończyć w domu i oddać tagiem <code>lab-4</code> najpóźniej w niedzielę 6 grudnia 2026 do godz. 23:59; ocena 3, 4 albo 5 wynika z etapów przebiegu w GitHub Actions dla tego tagu. Instrukcja: <a href="lab04.html">LAB 04</a>.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Wymaganie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ocena 3: minimum</td>
+<td>co najmniej 4 repozytoria (każde dla innej encji); pytania inwestora P1 (zapytanie pochodne przez relację) i P2 (<code>@Query</code> z <code>JOIN</code>) jako metody repozytoriów z testami <code>@DataJpaTest</code> (R4.01–R4.03)</td>
+</tr>
+<tr>
+<td>Ocena 4</td>
+<td>także pytanie P3: zestawienie <code>GROUP BY</code> zwracające projekcję (R4.04)</td>
+</tr>
+<tr>
+<td>Ocena 5</td>
+<td>co najmniej jedno pytanie włączone do <code>main</code> przez scalony Pull Request (R4.05)</td>
+</tr>
+<tr>
+<td>Pytania inwestora</td>
+<td>propozycje dla zespołu w <code>src/test/java/pl/wsb/rules/lab04/pytania</code> albo własne pytania; prowadzący sprawdza przy stanowisku, czy metoda odpowiada na pytanie</td>
+</tr>
+</tbody>
+</table></div>
 </article></main>
 <footer>
   <span>Wprowadzenie do technologii backendowych · laboratoria</span>
@@ -144,5 +172,6 @@
   label();
 })();
 </script>
+<script src="assets/snow.js" defer></script>
 </body>
 </html>

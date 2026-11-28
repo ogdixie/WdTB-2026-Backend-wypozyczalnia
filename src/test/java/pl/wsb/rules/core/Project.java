@@ -30,8 +30,8 @@ import static org.assertj.core.api.Assertions.fail;
  * pl.wsb.&lt;projekt&gt;                      ← klasa z @SpringBootApplication
  * pl.wsb.&lt;projekt&gt;.&lt;moduł&gt;.entity        ← encje, @Embeddable, enumy      (LAB 02)
  * pl.wsb.&lt;projekt&gt;.&lt;moduł&gt;.repository    ← repozytoria Spring Data        (LAB 03)
- * pl.wsb.&lt;projekt&gt;.&lt;moduł&gt;.application   ← serwisy, przypadki użycia     (LAB 04)
- * pl.wsb.&lt;projekt&gt;.&lt;moduł&gt;.api           ← publiczny kontrakt modułu     (LAB 04)
+ * pl.wsb.&lt;projekt&gt;.&lt;moduł&gt;.application   ← serwisy, przypadki użycia     (LAB 05)
+ * pl.wsb.&lt;projekt&gt;.&lt;moduł&gt;.api           ← publiczny kontrakt modułu     (LAB 05)
  * pl.wsb.&lt;projekt&gt;.&lt;moduł&gt;.web           ← kontrolery REST, DTO          (LAB 05)
  * pl.wsb.&lt;projekt&gt;.&lt;moduł&gt;.infrastructure← integracje z otoczeniem      (LAB 06)
  * pl.wsb.&lt;projekt&gt;.shared                 ← kod współdzielony przez moduły
